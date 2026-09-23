@@ -2,9 +2,11 @@
 #include "kernel/stat.h"
 #include "user/user.h"
 
-int main(int argc, char *argv[]){
-  if(argc != 2){
-    fprintf(2, "sleep: missing arg\n");
+int main(int argc, char* argv[]) {
+  if (argc == 1) {
+    exit(0);
+  }
+  if (argc != 2) {
     exit(1);
   }
 
@@ -14,4 +16,3 @@ int main(int argc, char *argv[]){
 
   exit(0);
 }
-
