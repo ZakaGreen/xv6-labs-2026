@@ -147,13 +147,46 @@ walkaddr(pagetable_t pagetable, uint64 va)
 }
 
 
-#if defined(LAB_PGTBL) || defined(SOL_MMAP) || defined(SOL_COW)
+//#if defined(LAB_PGTBL) || defined(SOL_MMAP) || defined(SOL_COW)
+static void
+vmprint_rec(pagetable_t pagetable, int level, uint64 base)
+{
+  for(int i = 0; i < 512; i++){
+    pte_t pte = pagetable[i];
+
+    if(pte & PTE_V){
+      uint64 pa = PTE2PA(pte);
+      uint64 va = base + ((uint64)i << PXSHIFT(level));
+
+      for(int j = 0; j < 3 - level; j++)
+        printk(" ..");
+
+      printk("%p: pte %p pa %p", (pagetable_t)va, (pagetable_t)pte, (pagetable_t)pa);
+
+      int leaf = pte & (PTE_R | PTE_W | PTE_X);
+
+      if(leaf){
+        printk(" ");
+        if(pte & PTE_R) printk("R");
+        if(pte & PTE_W) printk("W");
+        if(pte & PTE_X) printk("X");
+        if(pte & PTE_U) printk("U");
+      }
+      printk("\n");
+
+      if(!leaf && level > 0)
+        vmprint_rec((pagetable_t)pa, level - 1, va);
+    }
+  }
+}
+
 void
 vmprint(pagetable_t pagetable)
 {
-  // your code here
+  printk("page table %p\n", (pagetable_t)pagetable);
+  vmprint_rec(pagetable, 2, 0);
 }
-#endif
+//#endif
 
 
 // add a mapping to the kernel page table.
