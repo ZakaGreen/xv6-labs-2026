@@ -111,3 +111,35 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64
+sys_sigalarm(void)
+{
+    int interval;
+    uint64 handler;
+    struct proc *p = myproc();
+
+    // 1. Получить interval и handler из аргументов syscall
+    argint(0, &interval);
+    argaddr(1, &handler);
+
+    // 2. Сохранить их в соответствующие поля p
+    p->alarm_interval = interval;
+    p->alarm_handler = handler;
+
+    // 3. Сбросить счётчик тиков
+    p->alarm_counter = 0;
+
+    return 0;
+}
+
+uint64
+sys_sigreturn(void)
+{
+  struct proc *p = myproc();
+  uint64 old_a0 = p->saved_trapframe.a0;
+  *(p->trapframe) = p->saved_trapframe;
+  p->alarm_active = 0;
+
+  return old_a0;
+}
