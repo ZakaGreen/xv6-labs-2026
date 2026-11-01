@@ -150,3 +150,15 @@ printkinit(void)
 {
   initlock(&pr.lock, "pr");
 }
+
+void backtrace(void){
+  uint64 fp = r_fp();
+  uint64 bottom = PGROUNDDOWN(fp);
+  uint64 top = bottom + PGSIZE;
+  while(fp >= bottom + 16 && fp <= top){
+    uint64 ra = fp - 8;
+    printk("%p\n", (void *)*(uint64*)ra);
+
+    fp = *(uint64 *)(fp - 16);
+  }
+}
