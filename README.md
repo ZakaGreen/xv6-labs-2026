@@ -8,7 +8,7 @@ The coursework is maintained on [GitLab](https://gitlab.com/ilushkalubotin/xv6-x
 
 ## Find a lab
 
-Each branch is a separate lab snapshot. This table describes the work present in the imported history, not a claim that every lab or test is complete.
+Each branch is a separate lab snapshot. The table describes the work present in the imported history.
 
 | Branch | Area |
 | --- | --- |
@@ -33,7 +33,7 @@ Building requires a suitable RISC-V toolchain and QEMU with RISC-V support. See 
 
 ## Where the code comes from
 
-xv6 itself is the work of its upstream authors at MIT and its contributors. My contribution is the coursework recorded in the student commits; I did not write the operating system from scratch and this repository does not represent enrolment at MIT.
+xv6 itself is the work of its upstream authors at MIT and its contributors. My contribution is the FEI STU coursework recorded in the student commits.
 
 The original [LICENSE](LICENSE), upstream README and history are preserved. The GitLab repository remains the coursework source.
 
