@@ -1,3 +1,5 @@
+[English](README.md) · [Slovenčina](README.sk.md) · [Русский](README.ru.md)
+
 # xv6 — learning what happens underneath
 
 My operating-systems lab work at **FEI STU**, based on the **xv6 RISC-V teaching operating system**.
